@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://unpkg.com/vue@next"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <title>video stream</title>
+  </head>
+  <body>
+    <div id="app">
+      <video :src="urlStream" autoplay controls muted="false"></video>
+      <br />
+      <input v-model="searchQuery" type="search" placeholder="Поиск" />
+      <button @click="findMovie">Найти</button>
+      <br />
+      <ul>
+        <li v-for="file in files" :key="file.magnetHash">
+          {{ file.title }}
+          <br />
+          <button @click="play(file)">Play</button>
+        </li>
+      </ul>
+      <br />
+    </div>
+
+    <script>
+      const { createApp } = Vue
+      createApp({
+        data() {
+          return {
+            activeVideo: {},
+            files: [],
+            searchQuery: '',
+          }
+        },
+        computed: {
+          urlStream: ({ activeVideo }) =>
+            activeVideo.fileName
+              ? `/stream/${activeVideo.magnet}/${activeVideo.fileName}`
+              : '',
+        },
+        async mounted() {
+          this.getMyMovies()
+        },
+        methods: {
+          async play(file) {
+            const { data } = await axios.get(`/stream/add/${file.magnet}`)
+            this.activeVideo = {
+              magnet: file.magnet,
+              fileName: data[0].name,
+            }
+          },
+          async findMovie() {
+            const responce = await axios.get(
+              `/movies/search?searchQuery=${this.searchQuery}`
+            )
+            this.files = responce.data
+          },
+          async getMyMovies() {
+            const responce = await axios.get('/movies/')
+            this.files = responce.data
+          },
+        },
+      }).mount('#app')
+    </script>
+  </body>
+</html>
