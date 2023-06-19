@@ -18,6 +18,10 @@ const Movie = new Schema<Movie>({
     type: String,
     default: '',
   },
+  backdrop: {
+    type: String,
+    default: '',
+  },
   trailer: {
     type: String,
     default: '',

@@ -38,6 +38,7 @@ export interface Movie {
   year: string
   _id?: string
   poster: string
+  backdrop: string
   trailer: string
   runtime: string
   ratingImdb: string
@@ -49,4 +50,106 @@ export interface Movie {
   fileName: string
   sourceUrl: string
   director: string
+}
+
+export interface IMDBMovie {
+  adult: boolean
+  backdrop_path: string
+  belongs_to_collection: BelingsToCollection
+  budget: number
+  genres: Genre[]
+  homepage: string
+  id: number
+  imdb_id: string
+  original_language: string
+  original_title: string
+  overview: string
+  popularity: number
+  poster_path: string
+  production_companies: ProductionCompanies[]
+  production_countries: ProductionCountries[]
+  status: string
+  tagline: string
+  title: string
+  video: string
+  vote_average: number
+  vote_count: count
+}
+
+export interface Spokenlanguage {
+  english_name: string
+  iso_639_1: string
+  name: string
+}
+
+export interface Productioncountry {
+  iso_3166_1: string
+  name: string
+}
+
+export interface Productioncompany {
+  id: number
+  logo_path: string
+  name: string
+  origin_country: string
+}
+
+export interface Genre {
+  id: number
+  name: string
+}
+
+export interface Belongstocollection {
+  id: number
+  name: string
+  poster_path: string
+  backdrop_path: string
+}
+
+export interface CrewMember {
+  adult: boolean
+  gender: number
+  id: number
+  known_for_department: string
+  name: string
+  original_name: string
+  popularity: number
+  profile_path?: any
+  credit_id: string
+  cast_id?: string
+  character?: string
+  department: string
+  job: string
+  order: number
+}
+
+export interface IMDBTrailer {
+  iso_639_1: string
+  iso_3166_1: string
+  name: string
+  key: string
+  site: string
+  size: number
+  type: string
+  official: boolean
+  published_at: string
+  id: string
+}
+
+export interface GetCreditsResponse {
+  id: number
+  cast: CrewMember[]
+  crew: CrewMember[]
+}
+
+export interface GetTrailerResponse {
+  id: number
+  results: IMDBTrailer[]
+}
+
+export interface SearchMoviesResponse {
+  page: number
+  results: Partial<IMDBMovie>[]
+  total_pages: number
+  total_results: number
 }
