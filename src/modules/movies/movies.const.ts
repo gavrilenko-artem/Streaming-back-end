@@ -1,7 +1,0 @@
-export const BASE_URL = 'http://rutor.info'
-export const BASE_SERCH_URL = 'http://rutor.info/search'
-export const MAGNET_KEY = 'magnet:?xt'
-export const MAGENT_SPLIT = 'urn:btih:'
-export const IMDB_KEY = ''
-export const IMDB_API_URL = 'https://api.themoviedb.org/3'
-export const IMDB_SERCH_RESULT = ''
